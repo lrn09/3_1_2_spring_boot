@@ -1,53 +1,21 @@
 package crud.service;
 
 import crud.model.User;
-import crud.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-@Transactional(readOnly = true)
-public class UserService {
-    private final UserRepository userRepository;
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+public interface UserService {
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
 
-    public User findOne(int id) {
-        Optional<User> userById = userRepository.findById(id);
-        return userById.orElseThrow();
-    }
+    public List<User> getAllUsers();
 
-    @Transactional
-    public void save(User user) {
-        userRepository.save(user);
-    }
+    public User getUserById(int id);
 
-    @Transactional
-    public void update(int id, User user) {
-        Optional<User> optionalUser = Optional.of(userRepository.findById(id).orElseThrow());
+    public void saveUser(User user);
 
-        User userToBeUpdated = optionalUser.get();
+    public void updateUser(int id, User user);
 
-        userToBeUpdated.setFirstName(user.getFirstName());
-        userToBeUpdated.setLastName(user.getLastName());
+    public void deleteUser(int id);
 
-        userRepository.save(userToBeUpdated);
-
-    }
-
-    @Transactional
-    public void delete(int id) {
-        userRepository.deleteById(id);
-    }
 }

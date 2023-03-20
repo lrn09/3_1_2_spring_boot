@@ -9,51 +9,51 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
-    private final UserService userService;
+    private final UserService userServiceImpl;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
     @GetMapping("/users")
-    public String index(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String getAllUsers(Model model) {
+        model.addAttribute("users", userServiceImpl.getAllUsers());
         return "index";
     }
 
     @GetMapping("/users/new")
-    public String newUser(@ModelAttribute("user") User user) {
+    public String createNewUser(@ModelAttribute("user") User user) {
         return "new";
     }
 
     @GetMapping("/users/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.findOne(id));
+    public String showUserById(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userServiceImpl.getUserById(id));
         return "show";
     }
 
     @PostMapping("/")
-    public String create(@ModelAttribute("user") User user) {
-        userService.save(user);
+    public String createUser(@ModelAttribute("user") User user) {
+        userServiceImpl.saveUser(user);
         return "redirect:/users";
     }
 
     @GetMapping(value = "/users/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.findOne(id));
+    public String editUser(Model model, @PathVariable("id") int id) {
+        model.addAttribute("user", userServiceImpl.getUserById(id));
         return "edit";
     }
 
     @PatchMapping(value = "/users/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
-        userService.update(id, user);
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") int id) {
+        userServiceImpl.updateUser(id, user);
         return "redirect:/users";
     }
 
     @DeleteMapping("/users/{id}")
-    public String delete(@PathVariable("id") int id) {
-        userService.delete(id);
+    public String deleteUser(@PathVariable("id") int id) {
+        userServiceImpl.deleteUser(id);
         return "redirect:/users";
     }
 }
