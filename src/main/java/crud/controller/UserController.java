@@ -22,15 +22,15 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("/users/new")
-    public String createNewUser(@ModelAttribute("user") User user) {
-        return "new";
-    }
-
     @GetMapping("/users/{id}")
     public String showUserById(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userServiceImpl.getUserById(id));
         return "show";
+    }
+
+    @GetMapping("/users/new")
+    public String getCreateUserPage(@ModelAttribute("user") User user) {
+        return "new";
     }
 
     @PostMapping("/")
@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/users/{id}/edit")
-    public String editUser(Model model, @PathVariable("id") int id) {
+    public String getEditUserPage(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userServiceImpl.getUserById(id));
         return "edit";
     }
