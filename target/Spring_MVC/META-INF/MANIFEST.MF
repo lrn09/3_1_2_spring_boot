@@ -2,4 +2,8 @@ Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
 Built-By: lrn
 Build-Jdk: Oracle OpenJDK version 17.0.2
+Implementation-Title: PP_2_3_1_crud Maven Webapp
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: org.example
+Main-Class: ${start-class}
 
